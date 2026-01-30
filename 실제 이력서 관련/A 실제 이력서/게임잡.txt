@@ -1,0 +1,166 @@
+경력
+총 17 년 9 개월
+2024.11 ~ 2025.09
+0년 11개월
+
+[슬래쉬]
+개발실 / 팀장 / 6000~7000만원
+담당업무
+1. 호텔 관리 전산 시스템 리뉴열.
+2. AI 생성형 관련 프로젝트 ( ncsoft AI 플랫폼 협업 )
+3. 공진원(공공기관) 리뉴얼(영문페이지 추가, 한식문화상자 ( spring 기반 ) )
+4. 아이돌 팬플랫폼 모바일앱 ( react native AOS/IOS, nest 서버 ( AWS, 대규모동접) ),
+4. 기타 다수 프로젝트 팀장으로 진행.
+2024.05 ~ 2024.10
+0년 6개월
+
+[LG CNS]
+디지털트윈 개발 / 사원 / 6000~7000만원 / 프리랜서
+담당업무
+디지털트윈 관련. 배터리공장 내부 설계대로 시물레이션 진행.
+2022.07 ~ 2023.11
+1년 5개월
+엘리오소프트
+개발 / 팀장 / 7000~8000만원
+담당업무
+1. 문서변환 솔루션 : office, 한글, pdf - 거의 모든 포멧간 실시간 변환(웹, 보안로컬)
+-> asp.net/core windows server(보안기능, 검색기능+), c#/c++/python변환모듈
+2. 문서파일 viewer : android native(java, kotlin), ios native(objectiveC,swift),
+web(react.js(typescript), vanilla js)
+3. 대규모 설문 시스템(대기업 납품용) : java spring boot linux server(spring webflux, kafka, jpa)
+4. 메신저(공공기관 납품용) : flutter, next.js, redis
+*기타 CICD 사용도구 - gitlab, jenkins, docker
+2021.03 ~ 2022.06
+1년 4개월
+
+[엔테크서비스]
+모바일앱 개발실 / 사원 / 8000~9000만원 / 프리랜서
+담당업무
+엔테크서비스 앱 개발
+1. 네이버 쥬니버스쿨 android/ios 모바일 앱(교육용 강의 콘텐츠들을 제작)
+- 유니티로 만든 교육용 학습앱, 활발히 서비스 중.
+- 기술 요약 : addressable assets, unirx, linq, spine, dotween, 동영상 모듈, 서버 연동.
+*기타 CICD, 관리용 사용도구 - github, jenkins, naver cloud, naver 메신저, slack
+2020.10 ~ 2021.03
+0년 6개월
+
+[한성컴퓨터]  
+개발 / 파트장 / 4000~4500만원 / 프리랜서
+담당업무
+1. 수집형 RPG ( 제목 : sprit ) - 방치형 모바일 게임.
+* 클라이언트 - unity 엔진(2D탑뷰 형식의 몬스터 대결/수집)
+: assetbundle, 모듈형 조립식 구조 linq, spine, dotween...
+* 서버 - asp.net/core linux web server/관리자툴,
+2. NFT민팅 구매/판매 사이트(react.js,솔리디티,ERC721)
+3. 채팅서버(node.js), 인앱/광고, 푸쉬, 메시징, 패치...
+2020.01 ~ 2020.10
+0년 10개월
+
+[에이치앤게임즈]
+개발실 / 과장 / 5000~6000만원
+담당업무
+1. 카지노 모바일 - unity엔진, 베트남등 해외서비스(슬롯, 테이블게임, 슈팅)
+*클라이언트 - 유니티 (aos, ios, webgl)
+*서버 - java spring boot(rest,인증,다국어), node js, mysql, redis,
+c++ gameserver(물고기슈팅, iocp, protobuf, orm, store procedure)
+2. 블랙타이거 FPS - 언리얼 엔진4 ( pc )1. 예비군 훈련 시물레이션 (FPS형태의 전투 VR 시물레이션)
+* 클라이언트 - unity 엔진, 음성 관련 모듈.
+* 서버 - Photon Server와 유사한 기능을 하는 c#/c++ 대체 서버 제작.
+(cross-platform, scalable 구조, Boost.Asio, lua, mysql, redis)
+*클라이언트 - c++/블루프린트(애니메이션, 인공지능, 물리, UMG..)
+*서버 - c++ cross-platform, scalable 구조, Boost.Asio, lua, mysql, redis
+2011.07 ~ 2016.04
+4년 10개월
+
+[마누]
+개발 / 파트장 / 4500~5000만원
+담당업무
+1. 협객 (무협 RPG 게임(pc))
+*클라이언트 - 자체 제작 엔진을 이용한 무협 RPG 컨텐츠,
+맵툴(speedtree연동), 미션(길찾기모듈연동)
+*서버 - c++ cross-platform (raknet, rudp), 전투AI(진법공격.., pvp), 물리, mssql,
+패치시스템,
+2009.03 ~ 2011.01
+1년 11개월
+위드
+개발 / 파트장 / 4000~4500만원
+담당업무
+1. 포털 카지노 보드게임 pc용 포커,홀덤,바둑이,고스톱
+*클라이언트 - directx, MFC를 이용한 웹포털용 게임들.
+*서버 - c++(iocp), mssql, asp관리자페이지, c++패치시스템(active x)
+2. 다크스톤 (중세 rpg(pc))
+- 클라이언트 - gamebryo2.3을 이용한 중세 rpg, 던전탐험 케쥬얼 게임.
+- 서버 - c++(iocp), mysql
+3. 모바일 레이싱 prototype( 카트라이더 풍, only ios, client )
+*클라이언트 : 언리얼엔진3, udk, 자동차물리엔진, objective c, python
+2007.09 ~ 2008.09
+1년 1개월
+
+[코발트레이]
+개발실 / 과장 / 4000~4500만원
+담당업무
+1. 이레자이온(백화점 납품용 전자오락기) - 2D 대전 격투 게임(only client)
+*클라이언트 - ogre 엔진, c++, directX, physx, 바코드/RFID 통신(카드배출,목걸이신호저장)
+2006.11 ~ 2007.08
+0년 10개월
+한국소프트스페이스
+개발실 / 대리 / 3000~3500만원
+담당업무
+1. 실감형 네트워크 골프 시물레이션 - KT 연구과제
+*클라이언트 - c++, directX, 맵툴, 센서 연결
+*서버 - c++(iocp), 기기간 상호 연결. lobby 시스템
+2. 잠수함 격추 시물레이션(가상현실 3D UI 포함,국방부 과제) -적군어뢰기만/격추
+*클라이언트 - opengl, math관련 라이브러리, 대학 교수님들과 협업
+*서버 - c++(iocp), oracle db
+2004.05 ~ 2006.05
+2년 1개월
+
+[에프투시스템]
+개발 / 사원 / 2600~2800만원
+담당업무
+1. 바둑, 카지노 : 슬롯(파라다이스), 경마(로열경마) - 국제규격 SLI
+2. 기술 : opengl, ode, linux os, mysql db
+2003.06 ~ 2003.12
+0년 7개월
+닷넷소프트
+개발 / 사원 / 2200~2400만원
+담당업무
+.net 관련 서비스 앱 유지보수
+2002.01 ~ 2002.11
+0년 11개월
+준 게임즈
+개발실 / 사원 / 1800~2000만원
+담당업무
+자바/시물레이션 - 게임외 웹/어플 응용SW 개발
+보유역량
+보유기술
+- 언어 : Java/jsp, C++/C#, PHP, Object-C/Swift/Kotlin, .NET/asp.net/.net core, Node.js,
+python, react/vue/react native/flutter, html/css/javascript/typescript
+
+- 게임 클라이언트 : unity(최적화,쉐이더제작...), unreal4,5, cocos creator/pixiJs/three.js,
+gamebryo, ogre, 자체 엔진
+
+- 게임 서버 : cross-platform 게임 서버(C++(cross-platform, scalable, Boost.Asio, lua, mysql, redis) or iocp 게임서버 -&gt; rpg, fps, 케쥬얼 게임, 보드게임류 연동
+
+- 웹 backend : java spring boot, linux server(spring webflux, kafka, jpa)
+asp.net, asp.net core( windows, linux 운용 - iis, 톰켓, nginx ), PHP(라라벨),
+node.js(express,nestjs)
+-> java spring MSA 구성 경험 있고 다른 언어들도 가능함(도커,젠킨스,쿠버네티스)
+
+- 웹 frontend : html, css, jsscript, react.js, vue.js, flutter(웹/앱 동시 제작용으로 사용), react native
+
+- DB : Mssql, Mysql(maria), firebase, Redis, (SQL정규화/튜닝)
+
+기타 : AWS/GCP/NCLOUD (서버설치,배포,운영), Doker/쿠버네티스, 젠킨스, Git/SVN
+
+제작 분야 : RPG, FPS(게임엔진용 모바일, VR,AR),
+카지노 계열 게임(앱/웹)등을 상용수준으로 제작 가능.
+모바일앱/웹, 블록체인, NFT 판매 사이트 제작 가능.
+AI관련 응용프로그램(LLM 응용, 딥러닝, 생성형AI로 리소스 제작)​
+자격증
+2017.01
+정보보안기사
+과학기술정보통신부
+2016.02
+정보처리기사
+과학기술정보통신부

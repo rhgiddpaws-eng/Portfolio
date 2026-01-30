@@ -1,0 +1,11 @@
+1) 포트폴리오 소개 : 글로벌 카지노 포털 모바일 프로젝트
+
+2) 작업 범위 : 개발에 참여한 범위 및 지원환경
+- 모바일, 서버, 한게임 카지노 수준의 동남아 카지노 포털
+- 유니티 AOS/IOS/웹, Java Spring Server, Mybatis, Jenkins 
+
+3) 주요 업무 : 해당 서비스의 주요 기능 및 주요 페이지
+- https://www.youtube.com/watch?v=IPwII3XNYeI
+
+4) 주안점 : 서비스 구축 시 중점이 되었던 사항
+- 대규모 동시접속자(CCU, Concurrent Users) 처리를 위한 인프라 설계.

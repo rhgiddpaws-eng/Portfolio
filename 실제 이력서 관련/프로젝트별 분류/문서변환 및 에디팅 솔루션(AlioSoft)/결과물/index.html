@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlioSoft Document Solution | Portfolio</title>
+    <meta name="description" content="기업용 문서 변환, 파싱 및 웹 에디팅 통합 솔루션 개발 - 50여종 포맷 지원 및 대용량 처리">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0052cc;
+            /* Corporate Blue */
+            --secondary-color: #172B4D;
+            --text-dark: #172B4D;
+            --text-light: #5E6C84;
+            --bg-light: #F4F5F7;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #0052cc 0%, #0747a6 100%);
+            color: white;
+            padding: 80px 20px 60px;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .project-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .info-content {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 8px 18px;
+            background: var(--bg-light);
+            border: 1px solid #dfe1e6;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .tech-tag.primary {
+            background: #0052cc;
+            color: white;
+            border-color: #0052cc;
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .features-list li {
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .features-list li strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #0052cc;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: #FAFBFC;
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 100px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0052cc;
+            margin-bottom: 10px;
+        }
+
+        .image-caption p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #dfe1e6;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #172B4D;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <h1 class="project-title">AlioSoft 문서변환 및 에디팅 솔루션</h1>
+            <p class="project-subtitle">Enterprise Document Conversion & Web Editing Platform</p>
+            <p class="project-description">
+                기업 내 다양한 포맷의 문서를 웹 표준 형식으로 변환하고, 별도의 설치 없이 웹 브라우저에서 바로 열람 및 편집할 수 있는 통합 솔루션입니다.
+                대용량 문서의 고속 처리와 원본 수준의 높은 변환 품질을 보장하며, 안전한 협업 환경을 제공합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-section">
+                <h2 class="info-title">PROJECT OVERVIEW</h2>
+                <div class="info-content">
+                    <strong>기간:</strong> 2022년 - 2023년<br>
+                    <strong>역할:</strong> 솔루션 아키텍처 설계 및 코어 모듈 개발 (Backend & Conversion Engine)<br>
+                    <strong>성과:</strong> 공공기관 및 대기업 납품, 기존 솔루션 대비 변환 속도 30% 향상
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">TECH STACK</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag primary">Java Spring Boot</span>
+                    <span class="tech-tag primary">React.js</span>
+                    <span class="tech-tag">C++ / JNI</span>
+                    <span class="tech-tag">LibreOffice SDK</span>
+                    <span class="tech-tag">PDFium</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">KEY FEATURES</h2>
+                <ul class="features-list">
+                    <li>
+                        <strong>범용 포맷 지원</strong>
+                        HWP, DOCX, XLSX, PPTX, PDF 등 50여 종 이상의 다양한 문서 포맷 양방향 변환 지원
+                    </li>
+                    <li>
+                        <strong>웹 에디터 (Non-ActiveX)</strong>
+                        ActiveX 설치 없이 브라우저 내에서 HWP 및 MS Office 문서 편집 및 저장 기능 제공
+                    </li>
+                    <li>
+                        <strong>대용량 병렬 처리</strong>
+                        비동기 큐 시스템(RabbitMQ/Redis) 기반의 대용량 문서 일괄 변환 및 부하 분산 처리
+                    </li>
+                    <li>
+                        <strong>보안 및 권한 관리</strong>
+                        문서 열람/편집 권한 제어, 워터마크 삽입, DRM 연동을 통한 기업 정보 유출 방지
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">SOLUTION GALLERY</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>솔루션 아키텍처 (Architecture)</h3>
+                    <p>문서 변환 엔진 및 웹 서버 구성도 - 고가용성 및 확장성을 고려한 설계</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="../1.png" alt="Solution Architecture">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>통합 뷰어 (Universal Viewer)</h3>
+                    <p>다양한 문서 포맷을 원본 그대로 브라우저에서 렌더링</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="../2.png" alt="Document Viewer UI">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>웹 에디터 인터페이스 (Web Editor)</h3>
+                    <p>MS Office와 유사한 친숙한 UI/UX를 제공하는 웹 기반 문서 편집기</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="../3.png" alt="Web Editor UI">
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>관리자 대시보드 (Admin Dashboard)</h3>
+                    <p>실시간 변환 요청 현황 모니터링 및 서버 상태 관리</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="../4.png" alt="Admin Dashboard UI">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AlioSoft Document Solution Portfolio</p>
+            <p>Enterprise Software Development</p>
+        </div>
+    </footer>
+</body>
+
+</html>
