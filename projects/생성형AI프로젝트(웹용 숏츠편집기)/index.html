@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생성형 AI 숏츠 편집기 | Portfolio</title>
+    <meta name="description" content="React/Vite 기반 웹 숏츠 편집기 - AI 이미지/영상 생성, FFmpeg 인코딩, Kafka 비동기 처리">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b5cf6;
+            /* Purple - AI/Creative */
+            --secondary-color: #6d28d9;
+            --accent-color: #ec4899;
+            /* Pink - Video/Creative */
+            --success-color: #10b981;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #ec4899 100%);
+            padding: 80px 20px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M20 50 L50 20 L80 50 L50 80 Z M50 10 L90 50 L50 90 L10 50 Z" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(236, 72, 153, 0.2);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 900px;
+            opacity: 0.9;
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-section {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title::before {
+            content: '🎬';
+            font-size: 1.2rem;
+        }
+
+        .info-content {
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tech-tag.accent {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .tech-tag.success {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .architecture-flow {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .flow-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .flow-content {
+            flex: 1;
+        }
+
+        .flow-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .flow-content p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Image Gallery Section */
+        .gallery {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 80px;
+        }
+
+        .image-section:last-child {
+            margin-bottom: 40px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .image-caption p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title,
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+
+            .image-section {
+                margin-bottom: 60px;
+            }
+
+            .info-grid,
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .flow-number {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <div class="project-badge">🤖 AI-Powered Video Editor</div>
+            <h1 class="project-title">생성형 AI 숏츠 편집기</h1>
+            <p class="project-subtitle">React/Vite 기반 웹 비디오 편집 플랫폼 - AI 생성 & FFmpeg 인코딩</p>
+            <p class="project-description">
+                생성형 AI를 활용한 웹 기반 숏츠 비디오 편집 플랫폼입니다. Stable Diffusion LoRA 파인튜닝으로
+                커스텀 이미지를 생성하고, Replicate API로 동영상을 생성합니다. React/Vite 프론트엔드,
+                Spring Boot 백엔드, FastAPI AI 서비스가 Kafka로 비동기 통신하며, FFmpeg로 타임라인 기반
+                영상을 MP4/HLS로 인코딩합니다. Docker 컨테이너 환경에서 MariaDB, Kafka, Zookeeper를 운영하고
+                S3에 자산을 저장하는 확장 가능한 아키텍처입니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="info-title">프로젝트 개요</h2>
+                    <div class="info-content">
+                        <strong>분야:</strong> 생성형 AI 비디오 편집 플랫폼<br>
+                        <strong>역할:</strong> 풀스택 개발 및 AI 파이프라인 구축<br>
+                        <strong>목적:</strong> AI 기반 숏츠 비디오 생성 및 편집<br>
+                        <strong>특징:</strong> 비동기 AI 처리, FFmpeg 인코딩, 크레딧 시스템
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">기술 스택</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag primary">React</span>
+                        <span class="tech-tag primary">Vite</span>
+                        <span class="tech-tag accent">Spring Boot</span>
+                        <span class="tech-tag accent">FastAPI</span>
+                        <span class="tech-tag success">Kafka</span>
+                        <span class="tech-tag">Stable Diffusion</span>
+                        <span class="tech-tag">Replicate API</span>
+                        <span class="tech-tag">FFmpeg</span>
+                        <span class="tech-tag">MariaDB</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">S3</span>
+                        <span class="tech-tag">HLS</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">핵심 기능</h2>
+                    <ul class="features-list">
+                        <li><strong>AI 이미지 생성:</strong> Stable Diffusion LoRA 파인튜닝</li>
+                        <li><strong>AI 영상 생성:</strong> Replicate API 통합</li>
+                        <li><strong>비디오 편집:</strong> 타임라인 기반 편집기</li>
+                        <li><strong>MP4 인코딩:</strong> FFmpeg H.264/AAC 변환</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture">
+        <div class="container">
+            <h2 class="section-title">시스템 아키텍처 & 워크플로우</h2>
+            <div class="architecture-flow">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <h3>프론트엔드 (React/Vite)</h3>
+                        <p>사용자가 비디오 편집 인터페이스에서 AI 생성 및 편집을 요청. Spring Boot API와 REST로 통신하여
+                            타임라인 데이터 전송.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <h3>백엔드 (Spring Boot)</h3>
+                        <p>생성 요청을 Kafka 토픽(ai-generation-requests)으로 발행. 결과는 KafkaAIConsumer로 수신하여
+                            MariaDB에 저장. 크레딧/결제 로직 관리.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <h3>AI 서비스 (FastAPI)</h3>
+                        <p>Kafka를 구독하여 Stable Diffusion LoRA 또는 Replicate API로 이미지/영상 생성. 결과를 Kafka
+                            토픽(ai-generation-results)에 게시.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <h3>이미지 파인튜닝 (LoRA)</h3>
+                        <p>10-50장의 이미지와 캡션으로 Kohya_ss/diffusers를 사용해 UNet attention layer에 LoRA 어댑터 학습.
+                            Rank 32-128, 100+ epoch로 커스텀 스타일 생성.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">5</div>
+                    <div class="flow-content">
+                        <h3>비디오 인코딩 (FFmpeg)</h3>
+                        <p>Export API 호출 시 타임라인/레이어를 FFmpeg filter_complex로 변환. overlay/concat/xfade/subtitles
+                            적용하여 H.264/AAC MP4 생성.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">6</div>
+                    <div class="flow-content">
+                        <h3>저장 & 스트리밍 (S3/HLS)</h3>
+                        <p>인코딩된 MP4를 S3에 업로드 (users/{userId}/assets/{category}/{assetId}/encoded.mp4). HLS
+                            master.m3u8 생성으로 스트리밍 제공.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">7</div>
+                    <div class="flow-content">
+                        <h3>인프라 (Docker)</h3>
+                        <p>MariaDB, Kafka, Zookeeper를 Docker Compose로 구성. FastAPI → Spring Boot → React 순으로 서비스
+                            기동. 수평 확장 가능.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">핵심 성과 및 기술적 특징</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎨</div>
+                    <h3 class="highlight-title">Stable Diffusion LoRA 파인튜닝</h3>
+                    <p class="highlight-description">
+                        스타크래프트 게임 캐릭터/스타일을 학습시킨 커스텀 이미지 생성 모델 개발.
+                        Kohya_ss와 diffusers 라이브러리로 UNet의 attention layer에 LoRA 어댑터를 학습시켜
+                        독특한 스타일의 이미지를 생성합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎬</div>
+                    <h3 class="highlight-title">Replicate API 영상 생성</h3>
+                    <p class="highlight-description">
+                        다양한 AI 모델을 옵션별로 테스트하며 최적의 영상 생성 파이프라인을 구축했습니다.
+                        서버 상태를 모니터링하며 안정적인 영상 생성 서비스를 제공합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">⚡</div>
+                    <h3 class="highlight-title">Kafka 비동기 처리</h3>
+                    <p class="highlight-description">
+                        Kafka를 활용한 이벤트 기반 아키텍처로 AI 생성 지연을 격리하고
+                        시스템 안정성을 확보했습니다. FastAPI 인스턴스를 수평 확장하여
+                        대규모 요청을 효율적으로 처리합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎞️</div>
+                    <h3 class="highlight-title">FFmpeg 고급 인코딩</h3>
+                    <p class="highlight-description">
+                        filter_complex를 활용한 overlay, concat, xfade, subtitles 효과 적용.
+                        타임라인 기반 편집 데이터를 H.264/AAC MP4로 변환하여
+                        고품질 비디오를 생성합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">📺</div>
+                    <h3 class="highlight-title">HLS 스트리밍</h3>
+                    <p class="highlight-description">
+                        MP4 인코딩과 함께 HLS (master.m3u8) 형식으로 변환하여
+                        적응형 비트레이트 스트리밍을 제공합니다.
+                        다양한 네트워크 환경에서 최적의 재생 경험을 보장합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">💳</div>
+                    <h3 class="highlight-title">크레딧 시스템</h3>
+                    <p class="highlight-description">
+                        Spring Boot에서 크레딧 및 결제 로직을 관리합니다.
+                        생성 실패 시 자동 환불, 성공 시 자산 저장으로
+                        안정적인 과금 시스템을 구현했습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔒</div>
+                    <h3 class="highlight-title">인증된 다운로드</h3>
+                    <p class="highlight-description">
+                        사용자별 컨텐츠 접근 제어를 위한 인증된 다운로드 엔드포인트 구현.
+                        S3 URL은 인증된 프록시를 통해서만 접근 가능하여
+                        보안성을 강화했습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🐳</div>
+                    <h3 class="highlight-title">Docker 컨테이너화</h3>
+                    <p class="highlight-description">
+                        MariaDB, Kafka, Zookeeper를 Docker Compose로 구성하여
+                        일관된 개발/배포 환경을 제공합니다.
+                        서비스 간 의존성을 명확히 하여 안정적인 운영이 가능합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">프로젝트 주요 화면</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>숏츠 생성 및 편집 그리고 판매/구독 페이지</h3>
+                    <p>React/Vite 기반 타임라인 비디오 편집기 UI</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1.png" alt="메인 편집 인터페이스">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>AI 생성 기능</h3>
+                    <p>Stable Diffusion 및 Replicate API를 활용한 AI 컨텐츠 생성</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./2.png" alt="AI 생성 기능">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>타임라인 편집 및 인증/구독/판매 기능</h3>
+                    <p>레이어 기반 타임라인 편집 및 효과 적용</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./3.png" alt="타임라인 편집">
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>인코딩 및 내보내기 및 어드민 페이지</h3>
+                    <p>FFmpeg 기반 MP4/HLS 인코딩 및 S3 업로드</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./4.png" alt="인코딩 시스템">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 생성형 AI 숏츠 편집기 Project</p>
+            <p>AI-Powered Web Video Editor with Stable Diffusion, Replicate API & FFmpeg</p>
+        </div>
+    </footer>
+</body>
+
+</html>

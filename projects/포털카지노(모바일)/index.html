@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Casino Portal - Mobile | Portfolio</title>
+    <meta name="description" content="한게임 카지노 수준의 동남아 타겟 글로벌 카지노 포털 프로젝트 - Unity, Java Spring, 대규모 트래픽 처리">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #D4AF37;
+            /* Gold for Casino luxury */
+            --secondary-color: #2C3E50;
+            --text-dark: #1a1a1a;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: #111;
+            /* Dark theme for Casino header */
+            color: white;
+            padding: 80px 20px 60px;
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-subtitle {
+            font-size: 1.4rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            color: #ddd;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .video-link:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .info-content {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 8px 18px;
+            background: var(--bg-light);
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .features-list li {
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: #f4f4f4;
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 100px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .image-caption p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            padding: 10px;
+            /* Frame effect */
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <h1 class="project-title">Global Casino Portal - Mobile</h1>
+            <p class="project-subtitle">동남아시아 시장을 타겟으로 한 대규모 카지노 포털 서비스</p>
+            <p class="project-description">
+                한게임 카지노 수준의 퀄리티와 규모를 갖춘 모바일 카지노 플랫폼입니다.
+                Unity 엔진을 기반으로 Android, iOS, Web 멀티 플랫폼을 지원하며,
+                Java Spring 기반의 안정적인 서버 아키텍처로 대규모 동시 접속자를 원활하게 처리합니다.
+            </p>
+            <a href="https://www.youtube.com/watch?v=IPwII3XNYeI" target="_blank" class="video-link">
+                ▶ 프로젝트 시연 영상 보기 (YouTube)
+            </a>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-section">
+                <h2 class="info-title">PROJECT OVERVIEW</h2>
+                <div class="info-content">
+                    <strong>목표:</strong> 동남아 시장 점유율 확대를 위한 프리미엄 카지노 포털 구축<br>
+                    <strong>범위:</strong> 모바일 앱(Client) 및 게임 서버(Server) 전체 개발<br>
+                    <strong>특징:</strong> 대규모 트래픽 처리 인프라 및 크로스 플랫폼 지원
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">TECH STACK</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag primary">Unity 3D</span>
+                    <span class="tech-tag primary">Java Spring</span>
+                    <span class="tech-tag">Android / iOS</span>
+                    <span class="tech-tag">WebGL</span>
+                    <span class="tech-tag">MyBatis</span>
+                    <span class="tech-tag">Jenkins</span>
+                    <span class="tech-tag">WebSocket</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">KEY HIGHLIGHTS</h2>
+                <ul class="features-list">
+                    <li>
+                        <strong>멀티 플랫폼 지원</strong><br>
+                        Unity One-Source Multi-Use 전략으로 AOS, iOS, Web 환경 완벽 대응
+                    </li>
+                    <li>
+                        <strong>대규모 트래픽 처리</strong><br>
+                        동시 접속자(CCU) 수만 명 처리를 위한 최적화된 서버 아키텍처 및 DB 설계
+                    </li>
+                    <li>
+                        <strong>CI/CD 자동화</strong><br>
+                        Jenkins를 활용한 빌드 및 배포 자동화 파이프라인 구축
+                    </li>
+                    <li>
+                        <strong>글로벌 서비스 최적화</strong><br>
+                        국가별 네트워크 환경을 고려한 패킷 최적화 및 다국어 시스템
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">PROJECT GALLERY</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>메인 로비 (Lobby)</h3>
+                    <p>직관적이고 화려한 카지노 포털 메인 로비 UI - 다양한 게임으로의 진입점</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1.png" alt="Main Lobby UI">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>인게임 화면 (In-Game)</h3>
+                    <p>몰입감 높은 게임 플레이 화면 및 이펙트 연출</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./2.png" alt="In-Game UI">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>이벤트 및 보상 (Events)</h3>
+                    <p>사용자 리텐션을 위한 데일리 이벤트 및 잭팟 보상 시스템</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./3.png" alt="Event System UI">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Global Casino Portal Portfolio</p>
+            <p>Unity Client & Java Spring Server Development</p>
+        </div>
+    </footer>
+</body>
+
+</html>

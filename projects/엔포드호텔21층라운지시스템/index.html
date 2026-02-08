@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엔포드호텔 라운지 시스템 | Portfolio</title>
+    <meta name="description" content="Unity 기반 호텔 디지털 사이니지 시스템 - 대형 스크린 시청각 컨텐츠 제공 및 통합 관리 시스템">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            /* Elegant Dark Blue */
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c;
+            /* Luxury Red */
+            --gold-color: #f39c12;
+            /* Hotel Gold */
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            padding: 80px 20px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="30" stroke="rgba(243,156,18,0.1)" stroke-width="2" fill="none"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(243, 156, 18, 0.2);
+            border: 2px solid var(--gold-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            color: var(--gold-color);
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+            color: var(--gold-color);
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 900px;
+            opacity: 0.9;
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-section {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.2);
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title::before {
+            content: '🏨';
+            font-size: 1.2rem;
+        }
+
+        .info-content {
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tech-tag.accent {
+            background: var(--gold-color);
+            color: white;
+            border-color: var(--gold-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(44, 62, 80, 0.25);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card ul li {
+            padding: 8px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        .feature-card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--gold-color);
+        }
+
+        /* Image Gallery Section */
+        .gallery {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 80px;
+        }
+
+        .image-section:last-child {
+            margin-bottom: 40px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .image-caption p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title,
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+
+            .image-section {
+                margin-bottom: 60px;
+            }
+
+            .info-grid,
+            .highlights-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <div class="project-badge">🏨 Hotel Digital Signage System</div>
+            <h1 class="project-title">엔포드호텔 라운지 시스템</h1>
+            <p class="project-subtitle">Unity 기반 호텔 디지털 사이니지 및 통합 관리 시스템</p>
+            <p class="project-description">
+                엔포드호텔의 1층 키즈존과 21층 라운지에 대형 스크린을 통한 시청각 컨텐츠 제공 시스템을 Unity로 개발했습니다.
+                아이들을 위한 애니메이션 컨텐츠부터 호텔 분위기를 고조시키는 시각적 컨텐츠, 날씨 정보 시스템까지
+                포함한 종합 디지털 사이니지 솔루션입니다. 또한 호텔 리뉴얼과 관련된 전반적인 관리, 전시, 광고,
+                홈페이지 시스템 개발에도 참여했습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="info-title">프로젝트 개요</h2>
+                    <div class="info-content">
+                        <strong>클라이언트:</strong> 엔포드호텔<br>
+                        <strong>역할:</strong> Unity 기반 디지털 사이니지 시스템 개발<br>
+                        <strong>범위:</strong> 1층 키즈존 & 21층 라운지 대형 스크린 시스템<br>
+                        <strong>추가:</strong> 호텔 통합 관리/전시/광고/홈페이지 시스템
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">기술 스택</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag primary">Unity</span>
+                        <span class="tech-tag primary">C#</span>
+                        <span class="tech-tag accent">Digital Signage</span>
+                        <span class="tech-tag">Remote Control</span>
+                        <span class="tech-tag">CMS</span>
+                        <span class="tech-tag">Weather API</span>
+                        <span class="tech-tag">Video Streaming</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">핵심 기능</h2>
+                    <ul class="features-list">
+                        <li><strong>1층 키즈존:</strong> 어린이 애니메이션 컨텐츠 시스템</li>
+                        <li><strong>21층 라운지:</strong> 분위기 연출 시각 컨텐츠</li>
+                        <li><strong>날씨 시스템:</strong> 일주일 단위 날씨 정보 제공</li>
+                        <li><strong>통합 관리:</strong> 호텔 전반 시스템 관리</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">주요 시스템 구성</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🎬 1층 키즈존 시스템</h3>
+                    <p>어린이 고객을 위한 엔터테인먼트 공간에 최적화된 컨텐츠 제공 시스템</p>
+                    <ul>
+                        <li>애니메이션 컨텐츠 재생</li>
+                        <li>대형 스크린 최적화 UI/UX</li>
+                        <li>자동 재생 및 스케줄링</li>
+                        <li>밝고 친근한 인터페이스</li>
+                        <li>원격 컨텐츠 관리</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🌆 21층 라운지 시스템</h3>
+                    <p>프리미엄 라운지 분위기를 고조시키는 시각적 컨텐츠 시스템</p>
+                    <ul>
+                        <li>고급스러운 시각 컨텐츠</li>
+                        <li>일주일 단위 날씨 정보 표시</li>
+                        <li>시간대별 분위기 연출</li>
+                        <li>실시간 정보 업데이트</li>
+                        <li>우아한 UI 디자인</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🎛️ 통합 관리 시스템</h3>
+                    <p>호텔 리뉴얼에 따른 전반적인 디지털 시스템 관리</p>
+                    <ul>
+                        <li>컨텐츠 관리 시스템 (CMS)</li>
+                        <li>원격 제어 및 모니터링</li>
+                        <li>전시 및 광고 시스템</li>
+                        <li>홈페이지 연동</li>
+                        <li>통합 대시보드</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">핵심 성과 및 기술적 특징</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎮</div>
+                    <h3 class="highlight-title">Unity 기반 개발</h3>
+                    <p class="highlight-description">
+                        Unity 엔진을 활용하여 고품질 시각 컨텐츠를 안정적으로 재생하는
+                        디지털 사이니지 시스템을 구축했습니다. 운영 안전성과
+                        뛰어난 그래픽 성능을 동시에 달성했습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">📺</div>
+                    <h3 class="highlight-title">대형 스크린 최적화</h3>
+                    <p class="highlight-description">
+                        1층과 21층의 대형 스크린에 최적화된 UI/UX를 설계하여
+                        멀리서도 명확하게 보이는 인터페이스를 구현했습니다.
+                        고해상도 컨텐츠를 부드럽게 재생합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🌤️</div>
+                    <h3 class="highlight-title">실시간 날씨 정보</h3>
+                    <p class="highlight-description">
+                        21층 라운지에 일주일 단위 날씨 정보를 실시간으로 제공하여
+                        고객의 편의성을 높였습니다. 기상 API 연동을 통한
+                        정확한 정보 제공이 가능합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎯</div>
+                    <h3 class="highlight-title">맞춤형 컨텐츠</h3>
+                    <p class="highlight-description">
+                        키즈존과 라운지의 서로 다른 타겟 고객층에 맞춘
+                        차별화된 컨텐츠를 제공합니다. 각 공간의 특성과 분위기에
+                        최적화된 시청각 경험을 구현했습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔧</div>
+                    <h3 class="highlight-title">원격 관리 시스템</h3>
+                    <p class="highlight-description">
+                        컨텐츠 업데이트, 스케줄 관리, 시스템 모니터링을
+                        원격으로 수행할 수 있는 통합 관리 시스템을 구축했습니다.
+                        효율적인 운영이 가능합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏢</div>
+                    <h3 class="highlight-title">호텔 통합 솔루션</h3>
+                    <p class="highlight-description">
+                        디지털 사이니지뿐만 아니라 호텔 리뉴얼에 따른
+                        관리, 전시, 광고, 홈페이지 시스템까지 포함한
+                        종합적인 디지털 솔루션을 제공했습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">시스템 주요 화면</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>1층 키즈존 화면</h3>
+                    <p>어린이를 위한 애니메이션 컨텐츠 재생 시스템</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1층 키즈존 배경.png" alt="1층 키즈존">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>21층 라운지 프런트</h3>
+                    <p>프리미엄 라운지 분위기 연출 및 날씨 정보 시스템</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./21층프런트.png" alt="21층 라운지">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>원격 제어 시스템</h3>
+                    <p>컨텐츠 관리 및 시스템 모니터링을 위한 원격 제어 인터페이스</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./엔포드원격제어.png" alt="원격 제어 시스템">
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>컨트롤러 시스템</h3>
+                    <p>통합 관리 및 컨텐츠 스케줄링 컨트롤러</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./엔포드컨트롤러.png" alt="컨트롤러 시스템">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 엔포드호텔 라운지 시스템 Project</p>
+            <p>Unity-based Hotel Digital Signage & Integrated Management System</p>
+        </div>
+    </footer>
+</body>
+
+</html>

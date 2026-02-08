@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이돌 팬덤 플랫폼 | Portfolio</title>
+    <meta name="description"
+        content="글로벌 아이돌 팬덤을 위한 모바일 앱 개발 - React Native, Capacitor, Nest.JS 기반 대규모 트래픽 처리 및 스트리밍 플랫폼">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FF4081;
+            /* Pinkish color for Idol theme */
+            --secondary-color: #7C4DFF;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--bg-light);
+            padding: 60px 20px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .project-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .project-description {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        .app-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .app-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--text-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .app-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 40px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-title::before {
+            content: '●';
+            font-size: 0.8rem;
+        }
+
+        .info-content {
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            padding: 8px 16px;
+            background: var(--bg-light);
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .features-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Image Gallery Section */
+        .gallery {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 80px;
+        }
+
+        .image-section:last-child {
+            margin-bottom: 40px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .image-caption p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 900px;
+            /* 모바일 스크린샷 크기에 맞춤 */
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-wrapper2 {
+            width: 100%;
+            max-width: 370px;
+            /* 모바일 스크린샷 크기에 맞춤 */
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .image-wrapper2 img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-wrapper3 {
+            width: 100%;
+            max-width: 450px;
+            /* 모바일 스크린샷 크기에 맞춤 */
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .image-wrapper3 img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .blur-effect {
+            filter: blur(2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .gallery-title {
+                font-size: 1.5rem;
+            }
+
+            .image-section {
+                margin-bottom: 60px;
+            }
+
+            .app-links {
+                flex-direction: column;
+            }
+
+            .app-link {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <h1 class="project-title">아이돌 팬덤 플랫폼 - 스트리밍 및 굿즈 판매</h1>
+            <p class="project-subtitle">글로벌 유명 가수를 위한 모바일 팬덤 & 굿즈 플랫폼</p>
+            <p class="project-description">
+                Capacitor와 React Native를 활용하여 개발된 글로벌 팬덤 플랫폼입니다.
+                1차 버전은 Capacitor와 Native 모듈을 연동하여 굿즈 판매 및 NFC 음원 스트리밍 기능을 구현하였으며,
+                2차 버전은 React Native와 AWS EKS를 기반으로 대규모 동시 접속을 지원하는 글로벌 실시간 팬미팅 스트리밍,
+                구독 모델, 고도화된 쇼핑몰 기능을 제공합니다 .
+            </p>
+            <div class="app-links">
+                <a href="https://play.google.com/store/apps/details?id=com.jisoo.platform&hl=ko&pli=1" target="_blank"
+                    class="app-link">Android 앱 보기</a>
+                <a href="https://apps.apple.com/us/app/jisoo/id6740193950" target="_blank" class="app-link">iOS 앱 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-section">
+                <h2 class="info-title">프로젝트 개요</h2>
+                <div class="info-content">
+                    <strong>기간:</strong> 1차 및 2차 운영 및 고도화 진행 중<br>
+                    <strong>역할:</strong> 모바일 앱 및 백엔드 개발 (Full Stack)<br>
+                    <strong>목적:</strong> 글로벌 팬덤을 위한 올인원 소통 및 커머스 플랫폼 구축
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">기술 스택</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag primary">React Native</span>
+                    <span class="tech-tag primary">Capacitor</span>
+                    <span class="tech-tag">Nest.JS</span>
+                    <span class="tech-tag">AWS EKS</span>
+                    <span class="tech-tag">Native Modules</span>
+                    <span class="tech-tag">NFC</span>
+                    <span class="tech-tag">Streaming</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">주요 기능</h2>
+                <ul class="features-list">
+                    <li><strong>글로벌 실시간 팬미팅:</strong> 대규모 동시 접속자를 처리하는 라이브 스트리밍 시스템</li>
+                    <li><strong>팬덤 커머스:</strong> 굿즈 판매 및 글로벌 결제 시스템 연동</li>
+                    <li><strong>NFC 음원 연동:</strong> 실물 앨범/굿즈와 연동되는 디지털 음원 스트리밍 (Native 모듈 활용)</li>
+                    <li><strong>구독 시스템:</strong> 멤버십 전용 콘텐츠 및 혜택 제공</li>
+                    <li><strong>크로스 플랫폼 지원:</strong> Android 및 iOS 동시 지원 (Capacitor -> React Native 고도화)</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">개발 성과</h2>
+                <ul class="features-list">
+                    <li>성공적인 앱 스토어 출시 및 운영 (Android/iOS)</li>
+                    <li>대규모 트래픽 처리를 위한 AWS EKS 인프라 구축</li>
+                    <li>Native 모듈 직접 개발을 통한 하드웨어 기능(NFC) 완벽 제어</li>
+                    <li>결제 및 구독 모델 도입으로 수익화 모델 구축</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">주요 화면 (App Preview)</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>플랫폼 디자인</h3>
+                    <p>팬덤을 위한 세련된 UI/UX 디자인 및 홈 화면</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1.png" alt="JISOO 앱 메인 화면">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>실시간 글로벌 팬미팅 (Live Streaming)</h3>
+                    <p>대규모 동시 접속자를 지원하는 라이브 스트리밍 & 실시간 채팅 기능</p>
+                </div>
+                <div class="image-wrapper2">
+                    <img src="./2.png" alt="라이브 스트리밍 화면">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>팬덤 굿즈 샵 (Commerce)</h3>
+                    <p>공식 앨범 및 응원봉을 구매할 수 있는 전용 쇼핑몰</p>
+                </div>
+                <div class="image-wrapper2">
+                    <img src="./3.png" alt="굿즈 샵 화면" class="blur-effect">
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>NFC 앨범 플레이어 (NFC Music)</h3>
+                    <p>실물 앨범 태그를 통한 정품 인증 및 독점 음원 스트리밍</p>
+                </div>
+                <div class="image-wrapper3">
+                    <img src="./4.png" alt="NFC 플레이어 화면">
+                </div>
+            </div>
+
+            <!-- Image 5 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>멤버십 구독 (Subscription)</h3>
+                    <p>VIP 팬들을 위한 전용 혜택 및 멤버십 가입 페이지</p>
+                </div>
+                <div class="image-wrapper3">
+                    <img src="./5.png" alt="멤버십 페이지 화면">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Fandom Platform Portfolio</p>
+            <p>Mobile App & Backend Development</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCSoft 웹툰 생성 및 배포 시스템 | Portfolio</title>
+    <meta name="description" content="생성형 AI 기반 웹툰 제작 및 글로벌 배포 플랫폼 - Unity VR, Admin 시스템, 대규모 CCU 처리 인프라">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00C73C;
+            /* Naver Green */
+            --secondary-color: #1EC800;
+            --accent-color: #FF6B00;
+            /* Webtoon Orange */
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #00C73C 0%, #1EC800 100%);
+            padding: 80px 20px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 0L50 50L0 100M50 0L100 50L50 100" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 900px;
+            opacity: 0.9;
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-section {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title::before {
+            content: '●';
+            font-size: 1rem;
+        }
+
+        .info-content {
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tech-tag.accent {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 199, 60, 0.15);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Image Gallery Section */
+        .gallery {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .image-section {
+            margin-bottom: 80px;
+        }
+
+        .image-section:last-child {
+            margin-bottom: 40px;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .image-caption p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title,
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+
+            .image-section {
+                margin-bottom: 60px;
+            }
+
+            .info-grid,
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <div class="project-badge">🎨 R&D Platform Project</div>
+            <h1 class="project-title">생성형 AI 웹툰 제작 및 배포 플랫폼</h1>
+            <p class="project-subtitle">NCSoft R&D - 글로벌 웹툰 서비스 인프라 구축</p>
+            <p class="project-description">
+                생성형 AI를 활용한 웹툰 제작 도구와 네이버시리즈 유사 배포 플랫폼을 개발한 R&D 프로젝트입니다.
+                Unity VR 기반 창작 도구, 관리자 시스템, 그리고 대규모 동시접속자(CCU)를 처리할 수 있는
+                확장 가능한 인프라를 설계 및 구축하였습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="info-title">프로젝트 개요</h2>
+                    <div class="info-content">
+                        <strong>기간:</strong> R&D 프로젝트 (기획 및 프로토타입 개발)<br>
+                        <strong>역할:</strong> 플랫폼 아키텍처 설계 및 인프라 구축<br>
+                        <strong>목적:</strong> AI 기반 웹툰 창작 도구 및 글로벌 배포 플랫폼 개발
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">기술 스택</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag primary">Unity</span>
+                        <span class="tech-tag primary">VR</span>
+                        <span class="tech-tag accent">Generative AI</span>
+                        <span class="tech-tag">Admin System</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">S3/CDN</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Kafka</span>
+                        <span class="tech-tag">RabbitMQ</span>
+                        <span class="tech-tag">Nginx</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Helm</span>
+                        <span class="tech-tag">ArgoCD</span>
+                        <span class="tech-tag">Terraform</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">주요 기능</h2>
+                    <ul class="features-list">
+                        <li><strong>생성형 AI 웹툰 제작:</strong> AI 기반 자동 컷 생성 및 편집 도구</li>
+                        <li><strong>Unity VR 창작 환경:</strong> 몰입형 웹툰 제작 인터페이스</li>
+                        <li><strong>글로벌 배포 시스템:</strong> 네이버시리즈 유사 플랫폼</li>
+                        <li><strong>관리자 시스템:</strong> 콘텐츠 관리 및 모니터링 대시보드</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">핵심 성과 및 주안점</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🚀</div>
+                    <h3 class="highlight-title">대규모 CCU 처리</h3>
+                    <p class="highlight-description">
+                        수만 명의 동시접속자를 처리할 수 있는 확장 가능한 인프라 설계.
+                        Auto-scaling 및 로드밸런싱을 통한 안정적인 서비스 제공.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎨</div>
+                    <h3 class="highlight-title">AI 기반 창작 도구</h3>
+                    <p class="highlight-description">
+                        생성형 AI를 활용한 웹툰 컷 자동 생성 및 스타일 변환 기능.
+                        창작자의 생산성을 극대화하는 혁신적인 도구 개발.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🌐</div>
+                    <h3 class="highlight-title">글로벌 배포 플랫폼</h3>
+                    <p class="highlight-description">
+                        네이버시리즈와 유사한 웹툰 배포 플랫폼 구축.
+                        다국어 지원 및 글로벌 CDN을 통한 빠른 콘텐츠 전송.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔧</div>
+                    <h3 class="highlight-title">통합 관리 시스템</h3>
+                    <p class="highlight-description">
+                        콘텐츠 업로드, 승인, 통계 분석을 위한 종합 관리자 대시보드.
+                        실시간 모니터링 및 자동화된 워크플로우 구현.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">프로젝트 주요 화면</h2>
+
+            <!-- Image 1 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>플랫폼 아키텍처 개요</h3>
+                    <p>생성형 AI 웹툰 제작부터 배포까지의 전체 시스템 구조</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1.png" alt="플랫폼 아키텍처">
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>Unity VR 창작 환경</h3>
+                    <p>몰입형 VR 인터페이스를 통한 웹툰 제작 도구</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./2.png" alt="Unity VR 창작 도구">
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>관리자 대시보드</h3>
+                    <p>콘텐츠 관리 및 통계 분석을 위한 Admin 시스템</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./3.png" alt="관리자 시스템">
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>배포 플랫폼 인프라</h3>
+                    <p>대규모 트래픽 처리를 위한 확장 가능한 인프라 설계</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./4.png" alt="배포 인프라">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 NCSoft R&D Platform Project</p>
+            <p>Generative AI Webtoon Creation & Distribution System</p>
+        </div>
+    </footer>
+</body>
+
+</html>

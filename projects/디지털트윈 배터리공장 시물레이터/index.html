@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털트윈 배터리공장 시뮬레이터 - 보안상 이미지 없음 | Portfolio</title>
+    <meta name="description" content="Unity 기반 디지털트윈 배터리 생산 공장 시뮬레이션 및 모니터링 시스템">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            /* Industrial Blue */
+            --secondary-color: #004d99;
+            --accent-color: #ff6b00;
+            /* Energy Orange */
+            --warning-color: #dc3545;
+            /* Security Red */
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .security-notice::before {
+            content: '🔒 ';
+            font-size: 1.3rem;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+            padding: 80px 20px 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 50 L50 0 L100 50 L50 100 Z" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 107, 0, 0.2);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            color: var(--accent-color);
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 900px;
+            opacity: 0.9;
+        }
+
+        /* Tech Info Section */
+        .tech-info {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-section {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.2);
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title::before {
+            content: '⚙️';
+            font-size: 1.2rem;
+        }
+
+        .info-content {
+            font-size: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 10px 18px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tech-tag.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tech-tag.accent {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 102, 204, 0.25);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .highlight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .architecture-item {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .architecture-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
+        }
+
+        .architecture-item h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .architecture-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .architecture-item ul li {
+            padding: 8px 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        .architecture-item ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* No Images Notice */
+        .no-images-section {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .no-images-notice {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--warning-color);
+        }
+
+        .no-images-notice h2 {
+            font-size: 2rem;
+            color: var(--warning-color);
+            margin-bottom: 20px;
+        }
+
+        .no-images-notice h2::before {
+            content: '🔒 ';
+            font-size: 2.2rem;
+        }
+
+        .no-images-notice p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .no-images-notice .security-text {
+            font-weight: 700;
+            color: var(--warning-color);
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .info-grid,
+            .highlights-grid,
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Security Notice -->
+    <div class="security-notice">
+        보안상 상세 이미지 및 민감 정보 게재 불가 - Confidential Project
+    </div>
+
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <div class="project-badge">🏭 Digital Twin Simulation</div>
+            <h1 class="project-title">디지털트윈 배터리공장 시뮬레이터</h1>
+            <p class="project-subtitle">Unity 기반 3D 공장 시뮬레이션 및 통합 모니터링 시스템</p>
+            <p class="project-description">
+                배터리 생산 공장의 내부를 3D로 정밀하게 구현하여 실시간 시뮬레이션하는 디지털트윈 프로젝트입니다.
+                Unity 엔진을 활용한 고품질 3D 시각화와 Java Spring 기반 백엔드 시스템을 통해
+                공장의 모든 상황을 실시간으로 모니터링하고 제어할 수 있는 통합 관리 시스템을 구축했습니다.
+                쿠버네티스 기반 인프라로 안정적이고 확장 가능한 시스템을 제공합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tech Info Section -->
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="info-title">프로젝트 개요</h2>
+                    <div class="info-content">
+                        <strong>분야:</strong> 디지털트윈 시뮬레이션<br>
+                        <strong>역할:</strong> Unity 3D 시뮬레이터 및 통합 시스템 개발<br>
+                        <strong>목적:</strong> 배터리 생산 공장 실시간 모니터링 및 제어<br>
+                        <strong>보안:</strong> 상세 정보 및 이미지 게재 불가
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">기술 스택</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag primary">Unity</span>
+                        <span class="tech-tag primary">C#</span>
+                        <span class="tech-tag accent">Java Spring</span>
+                        <span class="tech-tag accent">MSSQL</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">WPF</span>
+                        <span class="tech-tag">SSO Login</span>
+                        <span class="tech-tag">Patch System</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">핵심 기능</h2>
+                    <ul class="features-list">
+                        <li><strong>3D 시뮬레이션:</strong> 공장 내부 정밀 3D 구현</li>
+                        <li><strong>실시간 모니터링:</strong> 전체 공정 상황 파악</li>
+                        <li><strong>통합 제어:</strong> 공장 설비 원격 제어</li>
+                        <li><strong>SSO 인증:</strong> 통합 로그인 시스템</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture">
+        <div class="container">
+            <h2 class="section-title">시스템 아키텍처</h2>
+            <div class="architecture-grid">
+                <div class="architecture-item">
+                    <h3>🎮 Unity 클라이언트</h3>
+                    <ul>
+                        <li>3D 공장 시뮬레이션</li>
+                        <li>실시간 데이터 시각화</li>
+                        <li>인터랙티브 UI/UX</li>
+                        <li>고성능 렌더링</li>
+                        <li>WPF 통합</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-item">
+                    <h3>🖥️ 백엔드 시스템</h3>
+                    <ul>
+                        <li>Java Spring Framework</li>
+                        <li>RESTful API</li>
+                        <li>MSSQL 데이터베이스</li>
+                        <li>실시간 데이터 처리</li>
+                        <li>비즈니스 로직 관리</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-item">
+                    <h3>🔐 인증 시스템</h3>
+                    <ul>
+                        <li>SSO 통합 로그인</li>
+                        <li>사용자 권한 관리</li>
+                        <li>보안 인증 프로토콜</li>
+                        <li>세션 관리</li>
+                        <li>접근 제어</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-item">
+                    <h3>☁️ 인프라</h3>
+                    <ul>
+                        <li>Kubernetes 오케스트레이션</li>
+                        <li>컨테이너 기반 배포</li>
+                        <li>자동 패치 시스템</li>
+                        <li>Windows Installer</li>
+                        <li>확장 가능한 아키텍처</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">핵심 성과 및 기술적 특징</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏭</div>
+                    <h3 class="highlight-title">디지털트윈 구현</h3>
+                    <p class="highlight-description">
+                        실제 배터리 생산 공장의 설계를 기반으로 정밀한 3D 디지털트윈을 구현했습니다.
+                        Unity 엔진을 활용하여 공장 내부의 모든 설비와 공정을 사실적으로 시뮬레이션합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">📊</div>
+                    <h3 class="highlight-title">실시간 모니터링</h3>
+                    <p class="highlight-description">
+                        공장의 모든 상황을 실시간으로 모니터링할 수 있는 시스템을 구축했습니다.
+                        생산 현황, 설비 상태, 공정 데이터를 직관적인 3D 인터페이스로 확인할 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎛️</div>
+                    <h3 class="highlight-title">통합 제어 시스템</h3>
+                    <p class="highlight-description">
+                        공장 설비를 원격으로 제어할 수 있는 통합 관리 시스템을 개발했습니다.
+                        시뮬레이션을 통해 공정 최적화와 문제 예방이 가능합니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">☁️</div>
+                    <h3 class="highlight-title">Kubernetes 인프라</h3>
+                    <p class="highlight-description">
+                        쿠버네티스 기반의 확장 가능한 인프라를 구축하여
+                        안정적인 서비스 운영과 효율적인 리소스 관리를 실현했습니다.
+                        컨테이너 오케스트레이션을 통한 자동화된 배포 시스템을 구현했습니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔐</div>
+                    <h3 class="highlight-title">SSO 인증 시스템</h3>
+                    <p class="highlight-description">
+                        Single Sign-On 통합 로그인 시스템을 구현하여
+                        보안성과 사용자 편의성을 동시에 향상시켰습니다.
+                        WPF 기반 클라이언트와 완벽하게 통합됩니다.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔄</div>
+                    <h3 class="highlight-title">자동 패치 시스템</h3>
+                    <p class="highlight-description">
+                        Windows Installer와 연동된 자동 패치 시스템을 개발하여
+                        서비스 중단 없이 업데이트를 제공합니다.
+                        버전 관리와 롤백 기능으로 안정적인 운영을 보장합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- No Images Section -->
+    <section class="no-images-section">
+        <div class="container">
+            <div class="no-images-notice">
+                <h2>보안 정책 안내</h2>
+                <p>
+                    본 프로젝트는 배터리 생산 공장의 내부 설계 및 운영 정보를 포함하고 있어
+                    보안상의 이유로 상세 이미지 및 민감한 기술 정보의 게재가 제한됩니다.
+                </p>
+                <p>
+                    프로젝트의 기술 스택, 아키텍처, 주요 기능에 대한 개괄적인 정보만 제공되며,
+                    구체적인 구현 세부사항 및 시각 자료는 비공개로 관리됩니다.
+                </p>
+                <p class="security-text">
+                    🔒 보안상 상세 내용 표기 금지
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 디지털트윈 배터리공장 시뮬레이터 Project</p>
+            <p>Unity-based Digital Twin Battery Factory Simulation & Monitoring System</p>
+            <p style="color: var(--warning-color); font-weight: 600; margin-top: 15px;">
+                ⚠️ Confidential Project - Limited Information Disclosure
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,7 +1,0 @@
-2개 앱으로 출시
-1. JISOO : Capacitor, Native 모듈연동, Nest.JS, AWS, 굿즈 판매, NFC 음원 스트링 연동.
-    AOS : https://play.google.com/store/apps/details?id=com.jisoo.platform&hl=ko&pli=1
-    IOS : https://apps.apple.com/us/app/jisoo/id6740193950
-2. JISOO 2차 : AOS / IOS 출시 후 운영 준비중
-    1) React Native, Nest.JS, AWS, EKS, 
-    2) 글로벌 실시간 스트리밍 팬미팅(대규모동접), 결제, 구독, 굿즈쇼핑몰, NFC 음원 스트링 연동

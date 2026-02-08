@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 쥬니버스쿨 - 교육용 모바일 앱 | Portfolio</title>
+    <meta name="description" content="유니티와 자바 스프링으로 개발한 어린이용 코딩/논리/수학 교육 앱. 아이들의 눈높이에 맞춘 인터랙티브 학습 플랫폼.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-yellow: #FFD400;
+            --brand-blue: #00C6FF;
+            --brand-green: #00E080;
+            --brand-purple: #9D50BB;
+            --text-main: #333;
+            --text-sub: #666;
+            --bg-light: #F9F9F9;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #fff;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .btn {
+            font-family: 'Jua', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* Hero Section - The "0번" image area */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(135deg, #FFF9D0 0%, #FFEFBA 100%);
+            padding: 40px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero-blob {
+            position: absolute;
+            background: var(--brand-yellow);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+            border: 4px solid white;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-banner-img:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #FFF;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 700px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Tech Badges */
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+
+        .tech-badge {
+            background: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: #444;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .tech-badge.highlight {
+            border-color: var(--brand-yellow);
+            color: #E6A600;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-3px) rotate(-2deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Features Grid - More colorful and attractive */
+        .features-section {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: -10px;
+            right: -10px;
+            height: 15px;
+            background: var(--brand-yellow);
+            opacity: 0.4;
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: #FFF;
+            padding: 30px 20px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #F0F0F0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--brand-yellow);
+            box-shadow: 0 20px 40px rgba(255, 212, 0, 0.2);
+        }
+
+        .feature-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: #FFF9D0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        /* Gallery/App Preview Section */
+        .preview-section {
+            padding: 80px 0 120px;
+            background: #F4F8FB;
+        }
+
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 120px;
+        }
+
+        .mockup-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .mockup-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .mockup-text {
+            flex: 1;
+        }
+
+        .mockup-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #333, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mockup-text p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .mockup-img-container {
+            flex: 1.2;
+            position: relative;
+        }
+
+        .mockup-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border: 8px solid white;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .mockup-row.reverse .mockup-img {
+            transform: perspective(1000px) rotateY(5deg);
+        }
+
+        .mockup-img:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+            z-index: 10;
+        }
+
+        /* Floating elements for "Nano Banana" lively feel */
+        .floating-shape {
+            position: absolute;
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mockup-row,
+            .mockup-row.reverse {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .mockup-img {
+                transform: none !important;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Decorative blobs -->
+        <div class="hero-blob" style="top: -50px; left: -50px; width: 300px; height: 300px; background: #FFD400;"></div>
+        <div class="hero-blob"
+            style="bottom: 50px; right: -50px; width: 250px; height: 250px; background: #00C6FF; animation-delay: 1s;">
+        </div>
+
+        <div class="container hero-content">
+            <h1 class="hero-title">네이버 쥬니버스쿨</h1>
+            <p class="hero-subtitle">
+                아이들의 논리력과 창의력이 쑥쑥! <br>
+                유니티로 만든 즐거운 코딩 & 수학 놀이터
+            </p>
+
+            <div class="tech-badges">
+                <div class="tech-badge highlight">Unity 3D</div>
+                <div class="tech-badge highlight">Java Spring Boot</div>
+                <div class="tech-badge">C# Scripts</div>
+                <div class="tech-badge">Gamification</div>
+                <div class="tech-badge">Interactive Learning</div>
+            </div>
+
+            <!-- Main Hero Image (0.png) - THE MOST IMPORTANT PART -->
+            <img src="./0.png" alt="쥬니버스쿨 메인 아트워크" class="hero-banner-img">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>어떤 점이 특별한가요?</h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="color: #FF6B6B;">🎯</div>
+                    <h3 class="feature-title">맞춤형 커리큘럼</h3>
+                    <p class="feature-desc">연령별, 수준별 맞춤 학습으로 아이의 성장에 딱 맞는 콘텐츠를 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="color: #4ECDC4;">🧩</div>
+                    <h3 class="feature-title">논리/코딩 사고력</h3>
+                    <p class="feature-desc">블록 코딩과 논리 퍼즐을 통해 자연스럽게 컴퓨팅 사고력을 키워줍니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="color: #45B7D1;">🖼️</div>
+                    <h3 class="feature-title">고품질 인터랙션</h3>
+                    <p class="feature-desc">Unity 3D 엔진 기반의 부드러운 애니메이션과 반응형 UI를 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="color: #9D50BB;">📊</div>
+                    <h3 class="feature-title">꼼꼼한 학습리포트</h3>
+                    <p class="feature-desc">학습 진행도와 강점/약점을 분석해 부모님께 상세한 리포트를 전달합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Section -->
+    <section class="preview-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>앱 미리보기</h2>
+            </div>
+
+            <div class="mockup-grid">
+                <!-- 1. Main Lobby -->
+                <div class="mockup-row">
+                    <div class="mockup-text">
+                        <h3>신나는 모험의 시작,<br>메인 로비</h3>
+                        <p>
+                            아이들의 시선을 사로잡는 귀여운 캐릭터와 다채로운 색감의 로비 화면입니다.
+                            복잡한 메뉴 없이 터치 한 번으로 원하는 학습 콘텐츠로 바로 이동할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="mockup-img-container">
+                        <img src="./1.png" alt="메인 로비 화면" class="mockup-img">
+                    </div>
+                </div>
+
+                <!-- 2. Learning Content -->
+                <div class="mockup-row reverse">
+                    <div class="mockup-text">
+                        <h3>만지고 배우는<br>인터랙티브 학습</h3>
+                        <p>
+                            단순한 암기가 아닌, 직접 조작하며 원리를 깨우치는 체험형 학습입니다.
+                            실생활 예제를 활용한 콘텐츠로 문제 해결 능력을 자연스럽게 길러줍니다.
+                        </p>
+                    </div>
+                    <div class="mockup-img-container">
+                        <img src="./2.png" alt="학습 화면" class="mockup-img">
+                    </div>
+                </div>
+
+                <!-- 3. Quiz Game -->
+                <div class="mockup-row">
+                    <div class="mockup-text">
+                        <h3>재미있는 퀴즈와<br>성취감 가득 보상</h3>
+                        <p>
+                            학습한 내용을 확인하는 퀴즈 타임! 문제를 맞히면 별과 배지를 획득하여
+                            아이들에게 지속적인 학습 동기를 부여합니다.
+                        </p>
+                    </div>
+                    <div class="mockup-img-container">
+                        <img src="./3.png" alt="퀴즈 화면" class="mockup-img">
+                    </div>
+                </div>
+
+                <!-- 4. Parent Settings -->
+                <div class="mockup-row reverse">
+                    <div class="mockup-text">
+                        <h3>안심하고 맡기는<br>부모님 안심 설정</h3>
+                        <p>
+                            이용 시간 제한, 학습 리포트 확인 등 보호자를 위한 상세 설정 기능을 제공하여
+                            올바른 디지털 습관을 길러줄 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="mockup-img-container">
+                        <img src="./4.png" alt="설정 화면" class="mockup-img"
+                            style="max-height: 500px; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Naver Juniver School Portfolio | Developed with Unity & Spring Boot</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
