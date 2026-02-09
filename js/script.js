@@ -56,7 +56,7 @@ const projects = [
         folder: '신라 호텔 홈페이지(Silla Hotel)',
         thumbnail: '1.png',
         imageCount: 4,
-        tags: ['Web', 'HTML/CSS', 'JavaScript']
+        tags: ['React.js', 'Spring Boot', 'HyperCLOVA X', 'Digital Twin', 'Web']
     },
     {
         id: 'korean-food-box',
