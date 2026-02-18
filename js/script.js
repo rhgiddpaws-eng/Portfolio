@@ -19,9 +19,9 @@ const projects = [
         tags: ['Custom Engine', 'C++', 'RakNet', 'MMORPG', 'Game Server']
     },
     {
-        id: 'ncsoft-government',
-        title: 'NCSoft 정부 과업(웹튠생성및배포시스템)',
-        folder: 'NCSoft 정부 과업(웹튠생성및배포시스템)',
+        id: 'webtoon-platform',
+        title: '웹툰 생성 및 배포 시스템',
+        folder: '웹툰생성및배포시스템',
         thumbnail: '1.png',
         imageCount: 4,
         tags: ['Unity VR', 'Generative AI', 'AWS', 'R&D', 'Admin']
@@ -35,9 +35,9 @@ const projects = [
         tags: ['Unity', 'Digital Twin', 'Java Spring', 'MSSQL', 'Kubernetes', 'WPF']
     },
     {
-        id: 'enford-hotel',
-        title: '엔포드호텔21층라운지시스템',
-        folder: '엔포드호텔21층라운지시스템',
+        id: 'lounge-signage',
+        title: '21층 라운지 디지털 사이니지',
+        folder: '21층라운지시스템',
         thumbnail: '21층프런트.png',
         imageCount: 4,
         tags: ['Unity', 'IoT', 'Hotel System', 'Real-time Control']
@@ -51,9 +51,9 @@ const projects = [
         tags: ['React Native', 'NestJS', 'AWS', 'Mobile']
     },
     {
-        id: 'silla-hotel',
-        title: '신라 호텔 홈페이지',
-        folder: '신라 호텔 홈페이지(Silla Hotel)',
+        id: 'premium-hotel-platform',
+        title: '프리미엄 호텔 웹 플랫폼',
+        folder: '프리미엄호텔웹플랫폼',
         thumbnail: '1.png',
         imageCount: 4,
         tags: ['React.js', 'Spring Boot', 'HyperCLOVA X', 'Digital Twin', 'Web']
@@ -61,18 +61,18 @@ const projects = [
     {
         id: 'korean-food-box',
         title: '한식문화상자',
-        folder: '한식문화상자(공진원(공공))',
+        folder: '한식문화상자(공공프로젝트)',
         thumbnail: '1.png',
         imageCount: 4,
         tags: ['Spring', 'Public', 'Web']
     },
     {
-        id: 'naver-junior-school',
+        id: 'kids-learning-mobile',
         title: '교육용강의 모바일',
-        folder: '교육용강의 모바일(네이버 쥬니버스쿨)',
+        folder: '교육용강의 모바일(키즈러닝)',
         thumbnail: '0.png',
         imageCount: 5,
-        tags: ['Unity', 'Mobile', 'Education', 'Naver']
+        tags: ['Unity', 'Mobile', 'Education', 'Cloud Platform']
     },
     {
         id: 'portal-casino',
@@ -85,7 +85,7 @@ const projects = [
     {
         id: 'document-solution',
         title: '문서변환 및 에디팅 솔루션',
-        folder: '문서변환 및 에디팅 솔루션(AlioSoft)',
+        folder: '문서변환 및 에디팅 솔루션(엔터프라이즈)',
         thumbnail: '1.png',
         imageCount: 4,
         tags: ['ASP.NET', 'C#', 'Document', 'Solution']

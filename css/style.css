@@ -842,6 +842,14 @@ section {
     color: var(--color-text-muted);
 }
 
+.contact-stat .stat-note {
+    margin-top: 4px;
+    max-width: 460px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(148, 163, 184, 0.9);
+}
+
 /* ===================================
    Footer
    =================================== */
