@@ -3,6 +3,15 @@
 // ===================================
 const projects = [
     {
+        id: 'ai-shoppingmall-mvp',
+        title: 'AI ShoppingMall MVP',
+        folder: 'AI-ShoppingMall_MVp',
+        thumbnail: '1.png',
+        thumbnailPosition: 'top',
+        imageCount: 8,
+        tags: ['Next.js 15', 'React 19', 'Tailwind CSS 4', 'Prisma', 'pgvector', 'TossPayments', 'S3/CDN']
+    },
+    {
         id: 'ai-shorts-editor',
         title: '생성형AI프로젝트(웹용 숏츠편집기)',
         folder: '생성형AI프로젝트(웹용 숏츠편집기)',
@@ -127,6 +136,7 @@ function renderProjects() {
                 src="projects/${project.folder}/${project.thumbnail}" 
                 alt="${project.title}"
                 class="project-image"
+                style="${project.thumbnailPosition ? `object-position: ${project.thumbnailPosition};` : ''}"
                 loading="lazy"
                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22250%22%3E%3Crect fill=%22%231e293b%22 width=%22400%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2220%22 fill=%22%2394a3b8%22%3E${project.title}%3C/text%3E%3C/svg%3E'"
             />

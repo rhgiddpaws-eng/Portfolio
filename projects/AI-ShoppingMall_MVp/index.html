@@ -1,0 +1,673 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ShoppingMall MVP | Portfolio</title>
+    <meta name="description" content="Next.js 15 기반 AI 쇼핑몰 MVP - 추천, 결제, 배송 추적, 운영 대시보드를 갖춘 확장형 커머스 플랫폼">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #1e293b;
+            --accent-color: #0ea5a4;
+            --accent-strong: #0f766e;
+            --highlight-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --bg-light: #f8fafc;
+            --bg-dark: #0b1220;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Manrope', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.65;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0b1220 0%, #102a43 45%, #0f766e 100%);
+            padding: 84px 20px 64px;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(14, 165, 164, 0.28), transparent 36%),
+                radial-gradient(circle at 85% 20%, rgba(245, 158, 11, 0.2), transparent 32%),
+                radial-gradient(circle at 60% 85%, rgba(255, 255, 255, 0.08), transparent 28%);
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background: rgba(14, 165, 164, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.02em;
+        }
+
+        .project-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        .project-subtitle {
+            font-size: 1.32rem;
+            font-weight: 600;
+            margin-bottom: 26px;
+            opacity: 0.96;
+        }
+
+        .project-description {
+            max-width: 920px;
+            font-size: 1.05rem;
+            opacity: 0.92;
+            margin-bottom: 22px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.75);
+            padding-bottom: 3px;
+        }
+
+        .project-link:hover {
+            opacity: 0.86;
+        }
+
+        .tech-info {
+            background: #ffffff;
+            padding: 64px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 26px;
+        }
+
+        .info-section {
+            background: var(--bg-light);
+            padding: 28px;
+            border-radius: 14px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .info-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 26px rgba(15, 23, 42, 0.08);
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-title::before {
+            content: '◆';
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .info-content {
+            color: var(--text-dark);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: var(--text-dark);
+            font-size: 0.86rem;
+            font-weight: 700;
+        }
+
+        .tech-tag.primary {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: #ffffff;
+        }
+
+        .tech-tag.accent {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            position: relative;
+            padding: 10px 0 10px 22px;
+            color: var(--text-dark);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-strong);
+            font-weight: 700;
+        }
+
+        .architecture {
+            background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+            padding: 64px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Manrope', sans-serif;
+            font-size: 2.05rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 36px;
+            letter-spacing: -0.01em;
+        }
+
+        .architecture-flow {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 14px;
+        }
+
+        .flow-step {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .flow-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary-color);
+            color: #ffffff;
+            font-weight: 800;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .flow-content h3 {
+            font-size: 1.06rem;
+            color: var(--secondary-color);
+            margin-bottom: 6px;
+        }
+
+        .flow-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .highlights {
+            background: #ffffff;
+            padding: 64px 20px;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .highlight-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-top: 4px solid var(--highlight-color);
+            border-radius: 14px;
+            padding: 24px;
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+        }
+
+        .highlight-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .highlight-title {
+            font-size: 1.06rem;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .highlight-description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .gallery {
+            background: linear-gradient(180deg, #f8fafc 0%, #ecfeff 100%);
+            padding: 80px 20px;
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-family: 'Manrope', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 48px;
+        }
+
+        .image-section {
+            margin-bottom: 70px;
+        }
+
+        .image-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-caption h3 {
+            font-size: 1.35rem;
+            color: var(--secondary-color);
+            margin-bottom: 6px;
+        }
+
+        .image-caption p {
+            color: var(--text-light);
+            font-size: 0.98rem;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #dbe4ef;
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        footer {
+            background: var(--bg-dark);
+            color: #ffffff;
+            text-align: center;
+            padding: 46px 20px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            opacity: 0.86;
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.25rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.06rem;
+            }
+
+            .section-title,
+            .gallery-title {
+                font-size: 1.66rem;
+            }
+
+            .flow-step {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-number {
+                margin-bottom: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="header">
+        <div class="container">
+            <div class="project-badge">🛍️ AI Commerce MVP</div>
+            <h1 class="project-title">AI ShoppingMall MVP</h1>
+            <p class="project-subtitle">럭셔리 의복·장신구 중심 추천형 커머스 플랫폼</p>
+            <p class="project-description">
+                <strong>ncott.shop</strong>은 Next.js 15, React 19, Tailwind CSS 4를 기반으로 구현한 AI 쇼핑몰 MVP입니다.
+                인증, 주문, 결제, 배송, 운영관리까지 전 과정을 하나의 흐름으로 묶고,
+                추천·결제·물류 연동을 실제 서비스 수준으로 검증하는 데 초점을 맞췄습니다.
+            </p>
+            <p class="project-description">
+                Google/Kakao SNS 로그인, iron-session + JWT 혼합 인증, TossPayments 승인/웹훅,
+                PostgreSQL + Prisma + pgvector 추천, S3 Presigned URL + CDN,
+                배송 Provider Adapter 구조를 적용해 MVP 이후 확장 가능한 기본 뼈대를 완성했습니다.
+            </p>
+            <a class="project-link" href="https://ncott.shop" target="_blank" rel="noopener noreferrer">실제 테스트 사이트 보기 ↗</a>
+        </div>
+    </section>
+
+    <section class="tech-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="info-title">프로젝트 개요</h2>
+                    <div class="info-content">
+                        <strong>분야:</strong> AI 추천 기반 쇼핑몰 MVP<br>
+                        <strong>역할:</strong> 풀스택 설계 및 구현<br>
+                        <strong>핵심 목표:</strong> 추천 + 결제 + 배송 추적 통합<br>
+                        <strong>운영 관점:</strong> 관리자 대시보드 중심 확장 설계
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">기술 스택</h2>
+                    <div class="tech-tags">
+                        <span class="tech-tag primary">Next.js 15</span>
+                        <span class="tech-tag primary">React 19</span>
+                        <span class="tech-tag primary">Tailwind CSS 4</span>
+                        <span class="tech-tag accent">TypeScript</span>
+                        <span class="tech-tag accent">Prisma</span>
+                        <span class="tech-tag accent">pgvector</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">TossPayments</span>
+                        <span class="tech-tag">iron-session</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">AWS S3 + CDN</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="info-title">핵심 기능</h2>
+                    <ul class="features-list">
+                        <li><strong>로그인:</strong> Google·Kakao·일반 로그인 동시 지원</li>
+                        <li><strong>결제:</strong> 승인 API + 웹훅으로 상태 동기화</li>
+                        <li><strong>추천:</strong> 벡터 유사도 + 카테고리 fallback</li>
+                        <li><strong>배송:</strong> 라이더 이벤트 기반 실시간 추적</li>
+                        <li><strong>운영:</strong> 매출/주문/재고 통합 모니터링</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="architecture">
+        <div class="container">
+            <h2 class="section-title">아키텍처 & 처리 흐름</h2>
+            <div class="architecture-flow">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <h3>프런트엔드 렌더링 (Next.js 15)</h3>
+                        <p>SSR/CSR 혼합 전략으로 초기 진입 속도와 인터랙션 품질을 동시에 확보하고, 모바일·태블릿·PC 반응형을 통합 제공.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <h3>인증 계층 (iron-session + JWT)</h3>
+                        <p>세션과 토큰을 혼합해 로그인 상태 유지 안정성과 API 확장성을 함께 확보. SNS 로그인까지 동일 권한 모델로 처리.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <h3>주문·결제 트랜잭션</h3>
+                        <p>주문 생성, 재고 반영, 결제 승인/취소 흐름을 트랜잭션으로 묶어 정합성을 유지하고 장애 시 복구 가능성을 높임.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <h3>추천 엔진 (pgvector)</h3>
+                        <p>유사도 검색을 우선 적용하고, 결과 공백 발생 시 카테고리 fallback으로 보완해 추천 비노출 구간을 최소화.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">5</div>
+                    <div class="flow-content">
+                        <h3>배송 연동 (Provider Adapter)</h3>
+                        <p>외부/내부/Mock 공급자를 어댑터 계층으로 분리해 구현 비용을 낮추고, 라이더 위치 로그 기반 추적 신뢰성을 강화.</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">6</div>
+                    <div class="flow-content">
+                        <h3>운영 최적화 (캐시 + 워밍)</h3>
+                        <p>API 캐시 제어와 워밍 전략을 적용해 최신성과 초기 응답속도를 균형 있게 유지하고, 운영 대시보드에서 KPI를 실시간 확인.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlights">
+        <div class="container">
+            <h2 class="section-title">핵심 성과</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🔐</div>
+                    <h3 class="highlight-title">혼합 인증 구조</h3>
+                    <p class="highlight-description">SNS 로그인과 일반 로그인을 하나의 인증 체계로 통합해 진입 장벽을 낮추고 운영 일관성을 확보.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">💳</div>
+                    <h3 class="highlight-title">결제 안정성 강화</h3>
+                    <p class="highlight-description">TossPayments 승인 API와 웹훅을 연동하고 주문·결제 트랜잭션을 적용해 실패/중복 처리 리스크를 최소화.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🧠</div>
+                    <h3 class="highlight-title">추천 공백 최소화</h3>
+                    <p class="highlight-description">pgvector 기반 유사도 추천과 카테고리 fallback을 함께 적용해 추천 부재 상황을 실무적으로 보완.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎞️</div>
+                    <h3 class="highlight-title">미디어 표현력 확대</h3>
+                    <p class="highlight-description">이미지뿐 아니라 동영상 상품까지 지원해 프리미엄 카탈로그 표현력과 전환 가능성을 강화.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🚚</div>
+                    <h3 class="highlight-title">실시간 배송 추적</h3>
+                    <p class="highlight-description">라이더 위치 로그와 배송 이벤트를 기록해 배송 가시성을 높이고 고객 신뢰도를 개선.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">🧩</div>
+                    <h3 class="highlight-title">연동 유연성</h3>
+                    <p class="highlight-description">Provider Adapter 패턴으로 외부/내부/Mock 환경을 빠르게 전환해 개발과 운영의 민첩성을 확보.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">📊</div>
+                    <h3 class="highlight-title">운영 대시보드</h3>
+                    <p class="highlight-description">매출, 주문 상태, 재고 부족 상품을 통합 모니터링해 MVP 이후 운영 확장까지 고려한 구조를 구현.</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">⚙️</div>
+                    <h3 class="highlight-title">배포/비용 유연성</h3>
+                    <p class="highlight-description">Docker 개발 환경 분리와 Supabase DB 전환 고려로 운영 안정성과 비용 유연성을 동시에 준비.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <h2 class="gallery-title">프로젝트 주요 화면</h2>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>홈/카탈로그 진입 화면</h3>
+                    <p>브랜드 톤 기반 메인 랜딩과 상품 탐색 흐름</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./1.png" alt="AI ShoppingMall MVP 홈 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>상품 리스트 및 필터링</h3>
+                    <p>추천·카테고리 기반 상품 탐색과 상세 진입</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./2.png" alt="상품 리스트 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>상품 상세/미디어 뷰</h3>
+                    <p>이미지·동영상 상품 표현과 구매 의사결정 지원</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./3.png" alt="상품 상세 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>장바구니/주문 플로우</h3>
+                    <p>주문 정보 확인부터 결제 직전 단계까지의 핵심 UI</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./4.png" alt="장바구니 및 주문 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>결제 및 상태 동기화</h3>
+                    <p>TossPayments 승인/웹훅 연동에 대응하는 결제 결과 화면</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./5.png" alt="결제 결과 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>배송 추적 화면</h3>
+                    <p>라이더 위치 로그/이벤트 기반 배송 현황 확인</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./6.png" alt="배송 추적 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>관리자 운영 대시보드</h3>
+                    <p>매출/주문/재고 상태를 통합 모니터링하는 운영 UI</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./7.png" alt="관리자 대시보드 화면">
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="image-caption">
+                    <h3>모바일 반응형 화면</h3>
+                    <p>모바일·태블릿 대응 레이아웃과 사용자 경험 검증</p>
+                </div>
+                <div class="image-wrapper">
+                    <img src="./8.png" alt="모바일 반응형 화면">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AI ShoppingMall MVP Project</p>
+            <p>AI Recommendation + Payment Reliability + Real-time Delivery Tracking</p>
+        </div>
+    </footer>
+</body>
+
+</html>
