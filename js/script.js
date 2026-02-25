@@ -1,7 +1,15 @@
-// ===================================
+﻿// ===================================
 // Project Data
 // ===================================
 const projects = [
+    {
+        id: 'edufine-erp',
+        title: '에듀파인 ERP 웹 연동 시스템',
+        folder: '에듀파인ERP',
+        thumbnail: '대시보드.png',
+        imageCount: 0,
+        tags: ['Java / Spring Boot', 'Vue.js', 'MSSQL', 'ERP Integration', 'Spring Batch', '공공기관']
+    },
     {
         id: 'ai-shoppingmall-mvp',
         title: 'AI ShoppingMall MVP',

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>에듀파인 ERP 웹 연동 시스템 | Portfolio</title>
+    <meta name="description" content="Java Spring Boot 기반의 K-에듀파인 시스템 ERP 연동 및 데이터 관리 플랫폼">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@500;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            /* Dark Blue */
+            --primary-light: #3b82f6;
+            /* Blue */
+            --secondary: #0ea5e9;
+            /* Light Blue */
+            --accent: #f59e0b;
+            /* Amber */
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .top-bar a {
+            color: #bae6fd;
+            text-decoration: none;
+            margin-left: 8px;
+            border-bottom: 1px dotted #bae6fd;
+            transition: color 0.2s;
+        }
+
+        .top-bar a:hover {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, var(--surface) 0%, #f1f5f9 100%);
+            padding: 80px 0 100px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-sub);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .tech-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+
+        .tech-tag {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary-light);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .mockup-main {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            background: white;
+        }
+
+        .mockup-main img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Image Display Sections */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-light {
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Row Layouts */
+        .showcase-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .showcase-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .showcase-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .showcase-text {
+            flex: 1;
+        }
+
+        .showcase-text h3 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .showcase-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--primary-light);
+            border-radius: 2px;
+        }
+
+        .showcase-text p {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+        }
+
+        .showcase-image {
+            flex: 1.5;
+            position: relative;
+        }
+
+        .showcase-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .showcase-image img:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Grid Layouts for multiple images */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-card {
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gallery-card-content {
+            padding: 24px;
+        }
+
+        .gallery-card h4 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .gallery-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
+        /* Full width highlight section */
+        .highlight-section {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .highlight-section h2 {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+
+        .highlight-image {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight-image img {
+            width: 100%;
+            display: block;
+        }
+
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+
+            .showcase-row,
+            .showcase-row.reverse {
+                flex-direction: column;
+            }
+
+            .grid-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Back Button */
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .back-nav a:hover {
+            transform: translateX(-5px);
+            background: #f8fafc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back to Portfolio -->
+    <div class="back-nav">
+        <a href="../../index.html#projects">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            포트폴리오 돌아가기
+        </a>
+    </div>
+
+    <!-- Top alert bar for live demo link -->
+    <div class="top-bar">
+        실제 운영 중인 사이트를 직접 확인해보세요:
+        <a href="https://kindergarten-transmission.vercel.app" target="_blank"
+            rel="noopener">kindergarten-transmission.vercel.app ↗</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">에듀파인 ERP 웹 연동 시스템</h1>
+            <p class="hero-subtitle">
+                아이큐브(iCube) 클론 기반으로 K-에듀파인 송수신 규격에 맞게 완벽하게 연동되는 강력한 웹 기반의 ERP 대시보드 및 데이터 인프라 시스템
+            </p>
+
+            <div class="tech-tags">
+                <span class="tech-tag">Java Spring Boot</span>
+                <span class="tech-tag">React / Next.js</span>
+                <span class="tech-tag">iCube Clone</span>
+                <span class="tech-tag">K-에듀파인 연동</span>
+                <span class="tech-tag">대시보드</span>
+            </div>
+
+            <!-- Main Mockup: Dashboard -->
+            <div class="mockup-main">
+                <img src="./대시보드.png" alt="메인 대시보드 UI">
+            </div>
+        </div>
+    </section>
+
+    <!-- 예산과 결산 부분 (Side by side) -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>유치원 재무·회계 시스템</h2>
+                <p>예산의 책정부터 결산까지 한 눈에 파악할 수 있는 예산/결산 관리 시스템입니다.</p>
+            </div>
+
+            <div class="showcase-row">
+                <div class="showcase-text">
+                    <h3>예산과 결산</h3>
+                    <p>
+                        복잡한 예산 코드 체계(세입/세출)를 직관적인 트리 구조와 표 형태로 구성하여 예산 편성부터 지출 내역, 잔액을 실시간으로 관리할 수 있습니다.
+                    </p>
+                    <p>
+                        이전 버전 ERP인 아이큐브(iCube)의 복잡한 매뉴얼을 최신 웹 환경에 맞춰 UI 편의성을 대폭 향상했습니다.
+                    </p>
+                </div>
+                <div class="showcase-image">
+                    <img src="./예산과결산.png" alt="예산과 결산 화면">
+                </div>
+            </div>
+
+            <div class="showcase-row reverse">
+                <div class="showcase-text">
+                    <h3>유치원 회계 / 현금출납</h3>
+                    <p>
+                        날짜별 수입, 지출 내역, 은행 계좌 잔고를 대조하여 빈틈없는 회계 관리가 가능합니다. 현금출납부 작성 시 계정과목 자동 매핑 및 필터링 검색을 지원합니다.
+                    </p>
+                </div>
+                <!-- Since there are two cash register mockups, we use a single big one or two smaller ones -->
+                <div class="showcase-image">
+                    <img src="./현금풀납부.png" alt="현금출납부 화면">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 에듀파인 전송 (Highlight Section) -->
+    <section class="highlight-section">
+        <div class="container">
+            <h2>K-에듀파인 원클릭 데이터 전송</h2>
+            <p style="margin-bottom: 40px; color: #bae6fd; max-width: 600px; margin-left: auto; margin-right: auto;">
+                ERP에 입력된 결산, 계좌, 수입/지출 내역을 국가 K-에듀파인 시스템 전문 규격에 맞춰 자동 파싱하고 전송하는 중계 모듈이 탑재되어 있습니다.
+            </p>
+
+            <div class="highlight-image">
+                <img src="./에듀파인전송.png" alt="에듀파인 전송 시스템 화면">
+            </div>
+
+            <div class="highlight-image" style="margin-top: 30px;">
+                <img src="./에듀파인전송2.png" alt="에듀파인 전송 이력 및 상태 화면">
+            </div>
+        </div>
+    </section>
+
+    <!-- 기초 데이터 관리 및 설정 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>인사 및 기본 자원 통합 관리</h2>
+            </div>
+
+            <div class="grid-gallery">
+                <!-- 사용자관리 -->
+                <div class="gallery-card">
+                    <img src="./사용자관리.png" alt="사용자 및 권한 설정 관리">
+                    <div class="gallery-card-content">
+                        <h4>사용자 및 권한 관리</h4>
+                        <p>웹 기반에서 간편하게 유치원별 원장, 행정 실무자, 교사 등 세분화된 권한과 계정을 일괄 관리합니다.</p>
+                    </div>
+                </div>
+
+                <!-- 인사급여관리 -->
+                <div class="gallery-card">
+                    <img src="./인사급여관리.png" alt="인사/급여/기본급/수당/공제 관리">
+                    <div class="gallery-card-content">
+                        <h4>인사 / 급여 관리</h4>
+                        <p>기본급, 수당, 4대보험 공제 등 급여 대장을 생성하고 연말정산 서식 등과 연동되는 복합적인 인사 모듈입니다.</p>
+                    </div>
+                </div>
+
+                <!-- 계좌연동 -->
+                <div class="gallery-card">
+                    <img src="./계좌연동.png" alt="계좌 연동 및 예/적금 개설 등록">
+                    <div class="gallery-card-content">
+                        <h4>실시간 계좌 연동</h4>
+                        <p>시중 은행 시스템과 오픈 API로 연계해, 거래내역 및 잔액 내역을 ERP에서 직접 조회할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 설정 / 유치원관리 -->
+                <div class="gallery-card">
+                    <img src="./설정.png" alt="글로벌 설정 및 유치원 관리">
+                    <div class="gallery-card-content">
+                        <h4>기초 환경 설정</h4>
+                        <p>유치원 관리(단설/병설/사립) 설정, 사업 연도, 회계 기간 수립 및 각종 코드 데이터/키워드를 자유롭게 구성합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 에듀파인 ERP 웹 연동 시스템 | Portfolio designed using iCube reference PDF manual</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
