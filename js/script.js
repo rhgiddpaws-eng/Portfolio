@@ -3,6 +3,15 @@
 // ===================================
 const projects = [
     {
+        id: 'crypto-asset-analysis',
+        title: '암호화폐 자산 분석 시스템',
+        folder: 'Crypto-Asset-Analysis-System',
+        thumbnail: '1.png',
+        thumbnailPosition: 'top',
+        imageCount: 6,
+        tags: ['Java / Spring Boot', 'Oracle', 'Next.js', 'React', 'TypeScript', 'Recharts']
+    },
+    {
         id: 'edufine-erp',
         title: '에듀파인 ERP 웹 연동 시스템',
         folder: '에듀파인ERP',
