@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>생성형 AI 숏츠 편집기 | Portfolio</title>
-    <meta name="description" content="React/Vite 기반 웹 숏츠 편집기 - AI 이미지/영상 생성, FFmpeg 인코딩, Kafka 비동기 처리">
+    <meta name="description" content="Vue3/Nuxt3 기반 웹 숏츠 편집기 - AI 이미지/영상 생성, FFmpeg 인코딩, Kafka 비동기 처리, WebSocket 실시간 연동">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -440,13 +440,13 @@
         <div class="container">
             <div class="project-badge">🤖 AI-Powered Video Editor</div>
             <h1 class="project-title">생성형 AI 숏츠 편집기</h1>
-            <p class="project-subtitle">React/Vite 기반 웹 비디오 편집 플랫폼 - AI 생성 & FFmpeg 인코딩</p>
+            <p class="project-subtitle">Vue3/Nuxt3 기반 웹 비디오 편집 플랫폼 - AI 생성 & FFmpeg 인코딩</p>
             <p class="project-description">
                 생성형 AI를 활용한 웹 기반 숏츠 비디오 편집 플랫폼입니다. Stable Diffusion LoRA 파인튜닝으로
-                커스텀 이미지를 생성하고, Replicate API로 동영상을 생성합니다. React/Vite 프론트엔드,
-                Spring Boot 백엔드, FastAPI AI 서비스가 Kafka로 비동기 통신하며, FFmpeg로 타임라인 기반
-                영상을 MP4/HLS로 인코딩합니다. Docker 컨테이너 환경에서 MariaDB, Kafka, Zookeeper를 운영하고
-                S3에 자산을 저장하는 확장 가능한 아키텍처입니다.
+                커스텀 이미지를 생성하고, Replicate API로 동영상을 생성합니다. Vue3/Nuxt3(TypeScript, Pinia) 프론트엔드,
+                Spring Boot 백엔드, FastAPI AI 서비스가 Kafka로 비동기 통신하며, WebSocket으로 생성 진행 상태를
+                실시간 반영합니다. SSR/SSG 렌더링과 FFmpeg 타임라인 인코딩으로 MP4/HLS를 제공하고,
+                Docker 환경에서 MariaDB, Kafka, Zookeeper를 운영하며 S3에 자산을 저장하는 확장 가능한 아키텍처입니다.
             </p>
         </div>
     </section>
@@ -468,8 +468,12 @@
                 <div class="info-section">
                     <h2 class="info-title">기술 스택</h2>
                     <div class="tech-tags">
-                        <span class="tech-tag primary">React</span>
-                        <span class="tech-tag primary">Vite</span>
+                        <span class="tech-tag primary">Vue3</span>
+                        <span class="tech-tag primary">Nuxt3</span>
+                        <span class="tech-tag primary">TypeScript</span>
+                        <span class="tech-tag primary">Pinia</span>
+                        <span class="tech-tag primary">SSR/SSG</span>
+                        <span class="tech-tag primary">WebSocket</span>
                         <span class="tech-tag accent">Spring Boot</span>
                         <span class="tech-tag accent">FastAPI</span>
                         <span class="tech-tag success">Kafka</span>
@@ -504,9 +508,10 @@
                 <div class="flow-step">
                     <div class="flow-number">1</div>
                     <div class="flow-content">
-                        <h3>프론트엔드 (React/Vite)</h3>
-                        <p>사용자가 비디오 편집 인터페이스에서 AI 생성 및 편집을 요청. Spring Boot API와 REST로 통신하여
-                            타임라인 데이터 전송.</p>
+                        <h3>프론트엔드 (Vue3/Nuxt3)</h3>
+                        <p>사용자가 비디오 편집 인터페이스에서 AI 생성 및 편집을 요청. Pinia로 편집 상태를 관리하고
+                            Spring Boot API와 REST로 통신하며, WebSocket으로 생성 진행률을 실시간 수신. SSR/SSG로
+                            초기 로딩과 SEO를 최적화.</p>
                     </div>
                 </div>
 
@@ -559,7 +564,7 @@
                     <div class="flow-number">7</div>
                     <div class="flow-content">
                         <h3>인프라 (Docker)</h3>
-                        <p>MariaDB, Kafka, Zookeeper를 Docker Compose로 구성. FastAPI → Spring Boot → React 순으로 서비스
+                        <p>MariaDB, Kafka, Zookeeper를 Docker Compose로 구성. FastAPI → Spring Boot → Nuxt3 순으로 서비스
                             기동. 수평 확장 가능.</p>
                     </div>
                 </div>
@@ -663,7 +668,7 @@
             <div class="image-section">
                 <div class="image-caption">
                     <h3>숏츠 생성 및 편집 그리고 판매/구독 페이지</h3>
-                    <p>React/Vite 기반 타임라인 비디오 편집기 UI</p>
+                    <p>Vue3/Nuxt3 기반 타임라인 비디오 편집기 UI</p>
                 </div>
                 <div class="image-wrapper">
                     <img src="./1.png" alt="메인 편집 인터페이스">
